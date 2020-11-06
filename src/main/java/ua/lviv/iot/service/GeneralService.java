@@ -1,10 +1,8 @@
 package ua.lviv.iot.service;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import ua.lviv.iot.DAO.GeneralDAO;
-import ua.lviv.iot.persistant.ConnectionManager;
 
 public abstract class GeneralService<T, ID, DAO> implements Service<T, ID> {
 
@@ -21,42 +19,27 @@ public abstract class GeneralService<T, ID, DAO> implements Service<T, ID> {
 
     @Override
     public List<T> findAll() throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        List<T> entities = dataaccess.findAll();
-        connection.close();
-        return entities;
+        return dataaccess.findAll();
     }
 
     @Override
     public T find(ID id) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        T entity = dataaccess.find(id);
-        connection.close();
-        return entity;
+        return dataaccess.find(id);
     }
 
     @Override
     public int delete(ID id) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = dataaccess.delete(id);
-        connection.close();
-        return result;
+        return dataaccess.delete(id);
     }
 
     @Override
     public int update(T entity) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = dataaccess.update(entity);
-        connection.close();
-        return result;
+        return dataaccess.update(entity);
     }
 
     @Override
     public int create(T entity) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = dataaccess.create(entity);
-        connection.close();
-        return result;
+        return dataaccess.create(entity);
     }
 
 }

@@ -12,15 +12,10 @@ import ua.lviv.iot.transformer.Transformer;
 
 public class PersonDAOImp extends GeneralDAOImp<Person, Integer> {
 
-    private static final String findAll = "SELECT * FROM person";
-    private static final String findByInitials = "";
-    private static final String find = "";
-    private static final String create = "";
-    private static final String update = "";
-    private static final String delete = "";
+    private static final String findByInitials = "SELECT * FROM person WHERE name = ? AND surname = ?";
 
     public PersonDAOImp() {
-        super(Person.class, findAll, find, create, update, delete);
+        super(Person.class);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
