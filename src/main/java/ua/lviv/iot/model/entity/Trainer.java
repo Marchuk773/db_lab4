@@ -17,6 +17,10 @@ public class Trainer {
     public Trainer() {
     }
 
+    public Trainer(Integer salaryId) {
+        this(-1, salaryId);
+    }
+
     public Trainer(Integer personId, Integer salaryId) {
         this.personId = personId;
         this.salaryId = salaryId;

@@ -20,6 +20,10 @@ public class User {
     public User() {
     }
 
+    public User(Integer abonementId, Integer trainerId) {
+        this(-1, abonementId, trainerId);
+    }
+
     public User(Integer personId, Integer abonementId, Integer trainerId) {
         this.personId = personId;
         this.abonementId = abonementId;

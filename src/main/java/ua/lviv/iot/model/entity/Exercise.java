@@ -29,6 +29,11 @@ public class Exercise {
     public Exercise() {
     }
 
+    public Exercise(String name, Double durationInMinutes, String muscleGroup,
+            Integer repeatsQuantity, Integer burnedCalories) {
+        this(-1, name, durationInMinutes, muscleGroup, repeatsQuantity, burnedCalories);
+    }
+
     public Exercise(Integer id, String name, Double durationInMinutes, String muscleGroup,
             Integer repeatsQuantity, Integer burnedCalories) {
         this.id = id;

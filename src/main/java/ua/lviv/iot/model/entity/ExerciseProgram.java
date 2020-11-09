@@ -17,6 +17,10 @@ public class ExerciseProgram {
     public ExerciseProgram() {
     }
 
+    public ExerciseProgram(String name) {
+        this(-1, name);
+    }
+
     public ExerciseProgram(Integer id, String name) {
         this.id = id;
         this.name = name;

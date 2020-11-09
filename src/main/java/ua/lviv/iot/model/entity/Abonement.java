@@ -20,6 +20,10 @@ public class Abonement {
     public Abonement() {
     }
 
+    public Abonement(Integer price, String name) {
+        this(-1, price, name);
+    }
+
     public Abonement(Integer id, Integer price, String name) {
         this.id = id;
         this.price = price;

@@ -20,6 +20,10 @@ public class Salary {
     public Salary() {
     }
 
+    public Salary(Double salary, Double bonus) {
+        this(-1, salary, bonus);
+    }
+
     public Salary(Integer id, Double salary, Double bonus) {
         this.id = id;
         this.salary = salary;

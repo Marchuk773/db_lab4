@@ -27,6 +27,11 @@ public class ExerciseSchedule {
     public ExerciseSchedule() {
     }
 
+    public ExerciseSchedule(Integer userId, Integer exerciseDayId, Date appointmentDate,
+            Date endingDate) {
+        this(-1, userId, exerciseDayId, appointmentDate, endingDate);
+    }
+
     public ExerciseSchedule(Integer id, Integer userId, Integer exerciseDayId, Date appointmentDate,
             Date endingDate) {
         this.id = id;

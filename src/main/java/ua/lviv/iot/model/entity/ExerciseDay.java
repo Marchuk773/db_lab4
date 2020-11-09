@@ -20,6 +20,10 @@ public class ExerciseDay {
     public ExerciseDay() {
     }
 
+    public ExerciseDay(String dayName, Integer exerciseProgramId) {
+        this(-1, dayName, exerciseProgramId);
+    }
+
     public ExerciseDay(Integer id, String dayName, Integer exerciseProgramId) {
         this.id = id;
         this.dayName = dayName;
