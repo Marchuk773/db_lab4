@@ -1,6 +1,5 @@
 package ua.lviv.iot.view;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -180,7 +179,7 @@ public class View {
         System.out.println("\nEnter price");
         int price = INPUT.nextInt();
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         Abonement abonement = new Abonement(price, name);
         System.out.println(abonementController.create(abonement));
     }
@@ -191,7 +190,7 @@ public class View {
         System.out.println("\nEnter price");
         int price = INPUT.nextInt();
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         Abonement abonement = new Abonement(id, price, name);
         System.out.println(abonementController.update(abonement));
     }
@@ -215,11 +214,11 @@ public class View {
 
     private void createExercise() throws SQLException {
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         System.out.println("\nEnter duration in minutes");
         Double duration = INPUT.nextDouble();
         System.out.println("\nEnter muscle group");
-        String muscleGroup = INPUT.nextLine();
+        String muscleGroup = INPUT.next();
         System.out.println("\nEnter number of repeats");
         int repeats = INPUT.nextInt();
         System.out.println("\nEnter number of burned calories");
@@ -232,11 +231,11 @@ public class View {
         System.out.println("\nEnter ID");
         int id = INPUT.nextInt();
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         System.out.println("\nEnter duration in minutes");
         Double duration = INPUT.nextDouble();
         System.out.println("\nEnter muscle group");
-        String muscleGroup = INPUT.nextLine();
+        String muscleGroup = INPUT.next();
         System.out.println("\nEnter number of repeats");
         int repeats = INPUT.nextInt();
         System.out.println("\nEnter number of burned calories");
@@ -266,7 +265,7 @@ public class View {
         System.out.println("\nEnter exercise program ID");
         int exerciseProgramId = INPUT.nextInt();
         System.out.println("\nEnter day name");
-        String dayName = INPUT.nextLine();
+        String dayName = INPUT.next();
         ExerciseDay exerciseDay = new ExerciseDay(dayName, exerciseProgramId);
         System.out.println(exerciseDayController.create(exerciseDay));
     }
@@ -277,7 +276,7 @@ public class View {
         System.out.println("\nEnter exercise program ID");
         int exerciseProgramId = INPUT.nextInt();
         System.out.println("\nEnter day name");
-        String dayName = INPUT.nextLine();
+        String dayName = INPUT.next();
         ExerciseDay exerciseDay = new ExerciseDay(id, dayName, exerciseProgramId);
         System.out.println(exerciseDayController.update(exerciseDay));
     }
@@ -301,7 +300,7 @@ public class View {
 
     private void createExerciseProgram() throws SQLException {
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         ExerciseProgram exerciseProgram = new ExerciseProgram(name);
         System.out.println(exerciseProgramController.create(exerciseProgram));
     }
@@ -310,7 +309,7 @@ public class View {
         System.out.println("\nEnter ID");
         int id = INPUT.nextInt();
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         ExerciseProgram exerciseProgram = new ExerciseProgram(id, name);
         System.out.println(exerciseProgramController.update(exerciseProgram));
     }
@@ -338,9 +337,9 @@ public class View {
         System.out.println("\nEnter exercise day ID");
         int exerciseDayId = INPUT.nextInt();
         System.out.println("\nEnter appointment date (yyyy-[m]m-[d]d format)");
-        Date appointmentDate = Date.valueOf(INPUT.nextLine());
+        String appointmentDate = INPUT.next();
         System.out.println("\nEnter ending date (yyyy-[m]m-[d]d format)");
-        Date endingDate = Date.valueOf(INPUT.nextLine());
+        String endingDate = INPUT.next();
         ExerciseSchedule exerciseSchedule = new ExerciseSchedule(userId, exerciseDayId,
                 appointmentDate, endingDate);
         System.out.println(exerciseScheduleController.create(exerciseSchedule));
@@ -354,9 +353,9 @@ public class View {
         System.out.println("\nEnter exercise day ID");
         int exerciseDayId = INPUT.nextInt();
         System.out.println("\nEnter appointment date (yyyy-[m]m-[d]d format)");
-        Date appointmentDate = Date.valueOf(INPUT.nextLine());
+        String appointmentDate = INPUT.next();
         System.out.println("\nEnter ending date (yyyy-[m]m-[d]d format)");
-        Date endingDate = Date.valueOf(INPUT.nextLine());
+        String endingDate = INPUT.next();
         ExerciseSchedule exerciseSchedule = new ExerciseSchedule(id, userId, exerciseDayId,
                 appointmentDate, endingDate);
         System.out.println(exerciseScheduleController.update(exerciseSchedule));
@@ -373,9 +372,9 @@ public class View {
         int flag = INPUT.nextInt();
         if (flag == 1) {
             System.out.println("\nEnter name of the person you want to find)");
-            String name = INPUT.nextLine();
+            String name = INPUT.next();
             System.out.println("\nEnter surname of the person you want to find)");
-            String surname = INPUT.nextLine();
+            String surname = INPUT.next();
             System.out.println(personController.findByInitials(name, surname));
         } else if (flag == 2) {
             System.out.println("\nEnter ID for the person you want to find");
@@ -394,11 +393,11 @@ public class View {
 
     private void createPerson() throws SQLException {
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         System.out.println("\nEnter surname");
-        String surname = INPUT.nextLine();
+        String surname = INPUT.next();
         System.out.println("\nEnter gender");
-        String gender = INPUT.nextLine();
+        String gender = INPUT.next();
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
         Person person = new Person(name, surname, gender, age);
@@ -409,11 +408,11 @@ public class View {
         System.out.println("\nEnter ID");
         int id = INPUT.nextInt();
         System.out.println("\nEnter name");
-        String name = INPUT.nextLine();
+        String name = INPUT.next();
         System.out.println("\nEnter surname");
-        String surname = INPUT.nextLine();
+        String surname = INPUT.next();
         System.out.println("\nEnter gender");
-        String gender = INPUT.nextLine();
+        String gender = INPUT.next();
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
         Person person = new Person(id, name, surname, gender, age);
@@ -540,15 +539,18 @@ public class View {
 
     public void show() {
         String keyMenu;
+        System.out.println(menu.get("S"));
+        System.out.println(menu.get("Q"));
+        System.out.println("Please, select menu point.");
         do {
-            System.out.println(menu.get("S"));
-            System.out.println(menu.get("Q"));
-            System.out.println("Please, select menu point.");
-            keyMenu = INPUT.nextLine().toUpperCase();
+            keyMenu = INPUT.next().toUpperCase();
             try {
                 methodsMenu.get(keyMenu).print();
             } catch (Exception e) {
             }
+            System.out.println(menu.get("S"));
+            System.out.println(menu.get("Q"));
+            System.out.println("Please, select menu point.");
         } while (!keyMenu.equals("Q"));
     }
 }

@@ -42,44 +42,33 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
         }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+    @SuppressWarnings({ "unchecked" })
     @Override
     public List<T> findAll() throws SQLException {
         List<T> entities = new LinkedList<>();
-        T instance = null;
-        try {
-            instance = currentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
         Connection connection = ConnectionManager.getConnection();
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(findAll)) {
                 while (resultSet.next()) {
-                    entities.add(
-                            (T) new Transformer(instance.getClass()).transformToEntity(resultSet));
+                    entities.add((T) new Transformer<T>((Class<T>) currentClass)
+                            .transformToEntity(resultSet));
                 }
             }
         }
         return entities;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+    @SuppressWarnings({ "unchecked" })
     @Override
     public T find(ID id) throws SQLException {
         T entity = null;
-        T instance = null;
-        try {
-            instance = currentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement statement = connection
                 .prepareStatement(find.replace("idValue", String.valueOf(id)))) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    entity = (T) new Transformer(instance.getClass()).transformToEntity(resultSet);
+                    entity = (T) new Transformer<T>((Class<T>) currentClass)
+                            .transformToEntity(resultSet);
                     break;
                 }
             }
@@ -146,27 +135,28 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
 
     private String setCreateQuery(T entity)
             throws IllegalArgumentException, IllegalAccessException {
-        String valuesOrder = "(";
-        String valuesPlaceholder = "(";
+        StringBuffer valuesOrder = new StringBuffer().append('(');
+        StringBuffer valuesPlaceholder = new StringBuffer().append('(');
         Field[] fields = entity.getClass().getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             fields[i].setAccessible(true);
             if (fields[i].isAnnotationPresent(PrimaryKey.class)) {
                 continue;
             }
-            valuesOrder += fields[i].getAnnotation(Column.class).name() + ", ";
-            valuesPlaceholder += "'" + String.valueOf(fields[i].get(entity)) + "', ";
+            valuesOrder.append(fields[i].getAnnotation(Column.class).name()).append(", ");
+            valuesPlaceholder.append("'").append(String.valueOf(fields[i].get(entity)))
+                    .append("', ");
         }
-        valuesOrder = valuesOrder.substring(0, valuesOrder.length() - 2) + ")";
-        valuesPlaceholder = valuesPlaceholder.substring(0, valuesPlaceholder.length() - 2) + ")";
+        valuesOrder.replace(valuesOrder.length() - 2, valuesOrder.length(), ")");
+        valuesPlaceholder.replace(valuesPlaceholder.length() - 2, valuesOrder.length(), ")");
         return create.replace("valuesOrder", valuesOrder).replace("valuesPlaceholder",
                 valuesPlaceholder);
     }
 
     private String setUpdateQuery(T entity)
             throws IllegalArgumentException, IllegalAccessException {
-        String valuesToUpdate = "";
-        String currentUpdate = "";
+        StringBuffer valuesToUpdate = new StringBuffer();
+        String currentUpdate = null;
         Field[] fields = entity.getClass().getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             fields[i].setAccessible(true);
@@ -174,10 +164,10 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
                 currentUpdate = update.replace("idValue", String.valueOf(fields[i].get(entity)));
                 continue;
             }
-            valuesToUpdate += fields[i].getAnnotation(Column.class).name() + "='"
-                    + String.valueOf(fields[i].get(entity)) + "', ";
+            valuesToUpdate.append(fields[i].getAnnotation(Column.class).name()).append("='")
+                    .append(String.valueOf(fields[i].get(entity))).append("', ");
         }
-        valuesToUpdate = valuesToUpdate.substring(0, valuesToUpdate.length() - 2);
+        valuesToUpdate.replace(valuesToUpdate.length() - 2, valuesToUpdate.length(), "");
         return currentUpdate.replace("valuesToUpdate", valuesToUpdate);
     }
 

@@ -27,18 +27,18 @@ public class ExerciseSchedule {
     public ExerciseSchedule() {
     }
 
-    public ExerciseSchedule(Integer userId, Integer exerciseDayId, Date appointmentDate,
-            Date endingDate) {
+    public ExerciseSchedule(Integer userId, Integer exerciseDayId, String appointmentDate,
+            String endingDate) {
         this(-1, userId, exerciseDayId, appointmentDate, endingDate);
     }
 
-    public ExerciseSchedule(Integer id, Integer userId, Integer exerciseDayId, Date appointmentDate,
-            Date endingDate) {
+    public ExerciseSchedule(Integer id, Integer userId, Integer exerciseDayId,
+            String appointmentDate, String endingDate) {
         this.id = id;
         this.userId = userId;
         this.exerciseDayId = exerciseDayId;
-        this.appointmentDate = appointmentDate;
-        this.endingDate = endingDate;
+        this.appointmentDate = Date.valueOf(appointmentDate);
+        this.endingDate = Date.valueOf(endingDate);
     }
 
     public Integer getId() {
