@@ -537,20 +537,22 @@ public class View {
         }
     }
 
-    public void show() {
-        String keyMenu;
+    private final void showSmallMenu() {
         System.out.println(menu.get("S"));
         System.out.println(menu.get("Q"));
         System.out.println("Please, select menu point.");
+    }
+
+    public void show() {
+        String keyMenu;
+        showSmallMenu();
         do {
             keyMenu = INPUT.next().toUpperCase();
             try {
                 methodsMenu.get(keyMenu).print();
             } catch (Exception e) {
             }
-            System.out.println(menu.get("S"));
-            System.out.println(menu.get("Q"));
-            System.out.println("Please, select menu point.");
+            showSmallMenu();
         } while (!keyMenu.equals("Q"));
     }
 }
