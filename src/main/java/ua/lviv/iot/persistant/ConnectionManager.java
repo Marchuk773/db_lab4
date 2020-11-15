@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
     private static final String url = "jdbc:mysql://localhost:3306/gym?useUnicode"
-            + "=true&serverTimezone=UTC&useSSL=false";
+            + "=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
 
     private static final String username = "roman";
 

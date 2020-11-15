@@ -371,9 +371,9 @@ public class View {
         System.out.println("1-Initials, 2-ID");
         int flag = INPUT.nextInt();
         if (flag == 1) {
-            System.out.println("\nEnter name of the person you want to find)");
+            System.out.println("\nEnter name of the person you want to find");
             String name = INPUT.next();
-            System.out.println("\nEnter surname of the person you want to find)");
+            System.out.println("\nEnter surname of the person you want to find");
             String surname = INPUT.next();
             System.out.println(personController.findByInitials(name, surname));
         } else if (flag == 2) {
