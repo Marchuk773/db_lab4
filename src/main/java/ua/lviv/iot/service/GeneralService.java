@@ -2,6 +2,9 @@ package ua.lviv.iot.service;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import org.hibernate.Session;
+
 import ua.lviv.iot.DAO.GeneralDAO;
 
 public abstract class GeneralService<T, ID, DAO> implements Service<T, ID> {
@@ -18,28 +21,28 @@ public abstract class GeneralService<T, ID, DAO> implements Service<T, ID> {
     }
 
     @Override
-    public List<T> findAll() throws SQLException {
-        return dataaccess.findAll();
+    public List<T> findAll(Session session) throws SQLException {
+        return dataaccess.findAll(session);
     }
 
     @Override
-    public T find(ID id) throws SQLException {
-        return dataaccess.find(id);
+    public T find(ID id, Session session) throws SQLException {
+        return dataaccess.find(id, session);
     }
 
     @Override
-    public int delete(ID id) throws SQLException {
-        return dataaccess.delete(id);
+    public void delete(ID id, Session session) throws SQLException {
+        dataaccess.delete(id, session);
     }
 
     @Override
-    public int update(T entity) throws SQLException {
-        return dataaccess.update(entity);
+    public void update(T entity, Session session) throws SQLException {
+        dataaccess.update(entity, session);
     }
 
     @Override
-    public int create(T entity) throws SQLException {
-        return dataaccess.create(entity);
+    public void create(T entity, Session session) throws SQLException {
+        dataaccess.create(entity, session);
     }
 
 }

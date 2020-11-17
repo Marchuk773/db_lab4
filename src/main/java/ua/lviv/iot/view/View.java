@@ -172,7 +172,8 @@ public class View {
     private void deleteAbonement() throws SQLException {
         System.out.println("\nEnter ID for an abonement you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(abonementController.delete(id));
+        abonementController.delete(id);
+        System.out.println("Abonement deleted!");
     }
 
     private void createAbonement() throws SQLException {
@@ -181,7 +182,8 @@ public class View {
         System.out.println("\nEnter name");
         String name = INPUT.next();
         Abonement abonement = new Abonement(price, name);
-        System.out.println(abonementController.create(abonement));
+        abonementController.create(abonement);
+        System.out.println("Abonement created!");
     }
 
     private void updateAbonement() throws SQLException {
@@ -192,7 +194,8 @@ public class View {
         System.out.println("\nEnter name");
         String name = INPUT.next();
         Abonement abonement = new Abonement(id, price, name);
-        System.out.println(abonementController.update(abonement));
+        abonementController.update(abonement);
+        System.out.println("Abonement updated!");
     }
 
     private void getAllExercises() throws SQLException {
@@ -209,7 +212,8 @@ public class View {
     private void deleteExercise() throws SQLException {
         System.out.println("\nEnter ID for an abonement you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(exerciseController.delete(id));
+        exerciseController.delete(id);
+        System.out.println("Exercise deleted!");
     }
 
     private void createExercise() throws SQLException {
@@ -224,7 +228,8 @@ public class View {
         System.out.println("\nEnter number of burned calories");
         int calories = INPUT.nextInt();
         Exercise exercise = new Exercise(name, duration, muscleGroup, repeats, calories);
-        System.out.println(exerciseController.create(exercise));
+        exerciseController.create(exercise);
+        System.out.println("Exercise created!");
     }
 
     private void updateExercise() throws SQLException {
@@ -241,7 +246,8 @@ public class View {
         System.out.println("\nEnter number of burned calories");
         int calories = INPUT.nextInt();
         Exercise exercise = new Exercise(id, name, duration, muscleGroup, repeats, calories);
-        System.out.println(exerciseController.update(exercise));
+        exerciseController.update(exercise);
+        System.out.println("Exercise updated!");
     }
 
     private void getAllExerciseDays() throws SQLException {
@@ -258,7 +264,8 @@ public class View {
     private void deleteExerciseDay() throws SQLException {
         System.out.println("\nEnter ID for an exercise day you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(exerciseDayController.delete(id));
+        exerciseDayController.delete(id);
+        System.out.println("Exercise day deleted!");
     }
 
     private void createExerciseDay() throws SQLException {
@@ -267,7 +274,8 @@ public class View {
         System.out.println("\nEnter day name");
         String dayName = INPUT.next();
         ExerciseDay exerciseDay = new ExerciseDay(dayName, exerciseProgramId);
-        System.out.println(exerciseDayController.create(exerciseDay));
+        exerciseDayController.create(exerciseDay);
+        System.out.println("Exercise day created!");
     }
 
     private void updateExerciseDay() throws SQLException {
@@ -278,7 +286,8 @@ public class View {
         System.out.println("\nEnter day name");
         String dayName = INPUT.next();
         ExerciseDay exerciseDay = new ExerciseDay(id, dayName, exerciseProgramId);
-        System.out.println(exerciseDayController.update(exerciseDay));
+        exerciseDayController.update(exerciseDay);
+        System.out.println("Exercise day updated!");
     }
 
     private void getAllExercisePrograms() throws SQLException {
@@ -295,14 +304,16 @@ public class View {
     private void deleteExerciseProgram() throws SQLException {
         System.out.println("\nEnter ID for an exercise program you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(exerciseProgramController.delete(id));
+        exerciseProgramController.delete(id);
+        System.out.println("Exercise program deleted!");
     }
 
     private void createExerciseProgram() throws SQLException {
         System.out.println("\nEnter name");
         String name = INPUT.next();
         ExerciseProgram exerciseProgram = new ExerciseProgram(name);
-        System.out.println(exerciseProgramController.create(exerciseProgram));
+        exerciseProgramController.create(exerciseProgram);
+        System.out.println("Exercise program created!");
     }
 
     private void updateExerciseProgram() throws SQLException {
@@ -311,7 +322,8 @@ public class View {
         System.out.println("\nEnter name");
         String name = INPUT.next();
         ExerciseProgram exerciseProgram = new ExerciseProgram(id, name);
-        System.out.println(exerciseProgramController.update(exerciseProgram));
+        exerciseProgramController.update(exerciseProgram);
+        System.out.println("Exercise program updated!");
     }
 
     private void getAllExerciseSchedules() throws SQLException {
@@ -328,7 +340,8 @@ public class View {
     private void deleteExerciseSchedule() throws SQLException {
         System.out.println("\nEnter ID for an exercise schedule you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(exerciseScheduleController.delete(id));
+        exerciseScheduleController.delete(id);
+        System.out.println("Exercise schedule deleted!");
     }
 
     private void createExerciseSchedule() throws SQLException {
@@ -342,7 +355,8 @@ public class View {
         String endingDate = INPUT.next();
         ExerciseSchedule exerciseSchedule = new ExerciseSchedule(userId, exerciseDayId,
                 appointmentDate, endingDate);
-        System.out.println(exerciseScheduleController.create(exerciseSchedule));
+        exerciseScheduleController.create(exerciseSchedule);
+        System.out.println("Exercise schedule created!");
     }
 
     private void updateExerciseSchedule() throws SQLException {
@@ -358,7 +372,8 @@ public class View {
         String endingDate = INPUT.next();
         ExerciseSchedule exerciseSchedule = new ExerciseSchedule(id, userId, exerciseDayId,
                 appointmentDate, endingDate);
-        System.out.println(exerciseScheduleController.update(exerciseSchedule));
+        exerciseScheduleController.update(exerciseSchedule);
+        System.out.println("Exercise schedule updated!");
     }
 
     private void getPeople() throws SQLException {
@@ -388,7 +403,8 @@ public class View {
     private void deletePerson() throws SQLException {
         System.out.println("\nEnter ID for the person you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(personController.delete(id));
+        personController.delete(id);
+        System.out.println("Person deleted!");
     }
 
     private void createPerson() throws SQLException {
@@ -401,7 +417,8 @@ public class View {
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
         Person person = new Person(name, surname, gender, age);
-        System.out.println(personController.create(person));
+        personController.create(person);
+        System.out.println("Person created!");
     }
 
     private void updatePerson() throws SQLException {
@@ -416,7 +433,8 @@ public class View {
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
         Person person = new Person(id, name, surname, gender, age);
-        System.out.println(personController.update(person));
+        personController.update(person);
+        System.out.println("Person updated!");
     }
 
     private void getAllSalaries() throws SQLException {
@@ -433,7 +451,8 @@ public class View {
     private void deleteSalary() throws SQLException {
         System.out.println("\nEnter ID for the salary you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(salaryController.delete(id));
+        salaryController.delete(id);
+        System.out.println("Salary deleted!");
     }
 
     private void createSalary() throws SQLException {
@@ -442,7 +461,8 @@ public class View {
         System.out.println("\nEnter bonus");
         Double bonus = INPUT.nextDouble();
         Salary salaryEntity = new Salary(salary, bonus);
-        System.out.println(salaryController.create(salaryEntity));
+        salaryController.create(salaryEntity);
+        System.out.println("Salary created!");
     }
 
     private void updateSalary() throws SQLException {
@@ -453,7 +473,8 @@ public class View {
         System.out.println("\nEnter bonus");
         Double bonus = INPUT.nextDouble();
         Salary salaryEntity = new Salary(id, salary, bonus);
-        System.out.println(salaryController.update(salaryEntity));
+        salaryController.update(salaryEntity);
+        System.out.println("Salary updated!");
     }
 
     private void getAllTrainers() throws SQLException {
@@ -470,7 +491,8 @@ public class View {
     private void deleteTrainer() throws SQLException {
         System.out.println("\nEnter ID for the trainer you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(trainerController.delete(id));
+        trainerController.delete(id);
+        System.out.println("Trainer deleted!");
     }
 
     private void createTrainer() throws SQLException {
@@ -479,7 +501,8 @@ public class View {
         System.out.println("\nEnter salary ID");
         int salaryId = INPUT.nextInt();
         Trainer trainer = new Trainer(personId, salaryId);
-        System.out.println(trainerController.create(trainer));
+        trainerController.create(trainer);
+        System.out.println("Trainer created!");
     }
 
     private void updateTrainer() throws SQLException {
@@ -488,7 +511,8 @@ public class View {
         System.out.println("\nEnter salary ID");
         int salaryId = INPUT.nextInt();
         Trainer trainer = new Trainer(personId, salaryId);
-        System.out.println(trainerController.update(trainer));
+        trainerController.update(trainer);
+        System.out.println("Trainer updated!");
     }
 
     private void getAllUsers() throws SQLException {
@@ -505,7 +529,8 @@ public class View {
     private void deleteUser() throws SQLException {
         System.out.println("\nEnter ID for the user you want to delete");
         int id = INPUT.nextInt();
-        System.out.println(userController.delete(id));
+        userController.delete(id);
+        System.out.println("User deleted!");
     }
 
     private void createUser() throws SQLException {
@@ -516,7 +541,8 @@ public class View {
         System.out.println("\nEnter trainer ID");
         int trainertId = INPUT.nextInt();
         User user = new User(personId, abonementId, trainertId);
-        System.out.println(userController.create(user));
+        userController.create(user);
+        System.out.println("User created!");
     }
 
     private void updateUser() throws SQLException {
@@ -527,7 +553,8 @@ public class View {
         System.out.println("\nEnter trainer ID");
         int trainertId = INPUT.nextInt();
         User user = new User(personId, abonementId, trainertId);
-        System.out.println(userController.update(user));
+        userController.update(user);
+        System.out.println("User updated!");
     }
 
     private final void showMenu() {

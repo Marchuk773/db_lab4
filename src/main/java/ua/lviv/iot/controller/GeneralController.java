@@ -1,15 +1,18 @@
 package ua.lviv.iot.controller;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import ua.lviv.iot.persistant.ConnectionManager;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import ua.lviv.iot.service.GeneralService;
 
 @SuppressWarnings({ "deprecation", "rawtypes", "unchecked" })
 public abstract class GeneralController<T, ID, SERVICE> implements Controller<T, ID> {
 
     GeneralService service;
+    private static final SessionFactory sessionFactory = new Configuration()
+            .configure().buildSessionFactory();
 
     public GeneralController(Class<SERVICE> currentClass) {
         try {
@@ -21,42 +24,56 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public List<T> findAll() throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        List<T> entities = service.findAll();
-        connection.close();
+        Session session = sessionFactory.openSession();
+        List<T> entities = null;
+        try {
+            entities = service.findAll(session);
+        } finally {
+            session.close();
+        }
         return entities;
     }
 
     @Override
     public T find(ID id) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        T entity = (T) service.find(id);
-        connection.close();
+        Session session = sessionFactory.openSession();
+        T entity = null;
+        try {
+            entity = (T) service.find(id, session);
+        } finally {
+            session.close();
+        }
         return entity;
     }
 
     @Override
-    public int delete(ID id) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = service.delete(id);
-        connection.close();
-        return result;
+    public void delete(ID id) throws SQLException {
+        Session session = sessionFactory.openSession();
+        try {
+            service.delete(id, session);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public int update(T entity) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = service.update(entity);
-        connection.close();
-        return result;
+    public void update(T entity) throws SQLException {
+        Session session = sessionFactory.openSession();
+        try {
+            service.update(entity, session);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public int create(T entity) throws SQLException {
-        Connection connection = ConnectionManager.getConnection();
-        int result = service.create(entity);
-        connection.close();
-        return result;
+    public void create(T entity) throws SQLException {
+        Session session = sessionFactory.openSession();
+        try {
+            service.create(entity, session);
+        } finally {
+            session.close();
+        }
     }
 
 }

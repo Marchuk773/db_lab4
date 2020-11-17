@@ -9,10 +9,10 @@ public interface Controller<T, ID> {
 
     T find(ID id) throws SQLException;
 
-    int delete(ID id) throws SQLException;
+    void delete(ID id) throws SQLException;
 
-    int update(T entity) throws SQLException;
+    void update(T entity) throws SQLException;
 
-    int create(T entity) throws SQLException;
+    void create(T entity) throws SQLException;
 
 }
