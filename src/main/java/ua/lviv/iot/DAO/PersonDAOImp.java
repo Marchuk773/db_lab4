@@ -18,7 +18,7 @@ public class PersonDAOImp extends GeneralDAOImp<Person, Integer> {
             throws SQLException {
         List<Person> people = new LinkedList<>();
         Query query = session
-                .createQuery("FROM Person WHERE name=nameValue AND surname=surnameValue");
+                .createQuery("FROM Person WHERE name = :nameValue AND surname = :surnameValue");
         query.setParameter("nameValue", name).setParameter("surnameValue", surname);
         for (Object person : query.getResultList()) {
             people.add((Person) person);

@@ -1,12 +1,16 @@
 package ua.lviv.iot.model.entity;
 
-import ua.lviv.iot.model.annotation.Table;
-import ua.lviv.iot.model.annotation.CompositePrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Table(name = "exercise_program_has_exercise")
+@Entity(name = "Exercise_program_has_exercise")
+@Table(name = "Exercise_program_has_exercise", schema = "gym", catalog = "")
 public class ExerciseProgramHasExercise {
 
-    @CompositePrimaryKey
+    @Id
+    @Column
     private PK_ExerciseProgramHasExercise pk;
 
     public ExerciseProgramHasExercise() {

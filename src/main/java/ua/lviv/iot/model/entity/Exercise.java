@@ -1,29 +1,31 @@
 package ua.lviv.iot.model.entity;
 
-import ua.lviv.iot.model.annotation.Table;
-import ua.lviv.iot.model.annotation.Column;
-import ua.lviv.iot.model.annotation.PrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Table(name = "exercise")
+@Entity(name = "Exercise")
+@Table(name = "Exercise", schema = "gym", catalog = "")
 public class Exercise {
 
-    @PrimaryKey
-    @Column(name = "id")
+    @Id
+    @Column
     private Integer id;
 
-    @Column(name = "name", length = 45)
+    @Column
     private String name;
 
-    @Column(name = "duration_in_minutes")
+    @Column
     private Double durationInMinutes;
 
-    @Column(name = "muscle_group", length = 45)
+    @Column
     private String muscleGroup;
 
-    @Column(name = "repeats_quantity")
+    @Column
     private Integer repeatsQuantity;
 
-    @Column(name = "burned_calories")
+    @Column
     private Integer burnedCalories;
 
     public Exercise() {

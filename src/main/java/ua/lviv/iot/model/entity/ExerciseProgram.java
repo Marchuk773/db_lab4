@@ -1,17 +1,19 @@
 package ua.lviv.iot.model.entity;
 
-import ua.lviv.iot.model.annotation.Table;
-import ua.lviv.iot.model.annotation.Column;
-import ua.lviv.iot.model.annotation.PrimaryKey;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Table(name = "exercise_program")
+@Entity(name = "Exercise_program")
+@Table(name = "Exercise_program", schema = "gym", catalog = "")
 public class ExerciseProgram {
 
-    @PrimaryKey
-    @Column(name = "id")
+    @Id
+    @Column
     private Integer id;
 
-    @Column(name = "name", length = 45)
+    @Column
     private String name;
 
     public ExerciseProgram() {

@@ -14,8 +14,9 @@ public class PersonController extends GeneralController<Person, Integer, PersonS
     }
 
     public List<Person> findByInitials(String name, String surname) throws SQLException {
-        Session session = new Configuration().configure("/resources/hibernate.cfg.xml")
-                .buildSessionFactory().openSession();
+        Configuration configuration = new Configuration();
+        configuration.configure();
+        Session session = configuration.buildSessionFactory().openSession();
         PersonService service = new PersonService();
         List<Person> people = null;
         try {

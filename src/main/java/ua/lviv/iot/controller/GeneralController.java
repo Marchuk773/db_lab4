@@ -11,8 +11,17 @@ import ua.lviv.iot.service.GeneralService;
 public abstract class GeneralController<T, ID, SERVICE> implements Controller<T, ID> {
 
     GeneralService service;
-    private static final SessionFactory sessionFactory = new Configuration()
-            .configure().buildSessionFactory();
+    private static final SessionFactory sessionFactory;
+
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+            sessionFactory = configuration.buildSessionFactory();
+        } catch (Throwable throwable) {
+            throw new ExceptionInInitializerError(throwable);
+        }
+    }
 
     public GeneralController(Class<SERVICE> currentClass) {
         try {

@@ -578,6 +578,7 @@ public class View {
             try {
                 methodsMenu.get(keyMenu).print();
             } catch (Exception e) {
+                e.printStackTrace();
             }
             showSmallMenu();
         } while (!keyMenu.equals("Q"));

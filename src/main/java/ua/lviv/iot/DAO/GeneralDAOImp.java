@@ -27,7 +27,7 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
 
     @Override
     public T find(ID id, Session session) throws SQLException {
-        return (T) session.get(currentClass, String.valueOf(id));
+        return (T) session.get(currentClass, (Integer) id);
     }
 
     @Override
