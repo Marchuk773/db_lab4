@@ -18,10 +18,10 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
 
     private final Class<T> currentClass;
     private static final String findAllTemplate = "SELECT * FROM tableName";
-    private static final String findTemplate = findAllTemplate + " WHERE idName = idValue";
+    private static final String findTemplate = findAllTemplate + " WHERE idName = ?";
     private static final String createTemplate = "INSERT tableName valuesOrder VALUES valuesPlaceholder";
     private static final String updateTemplate = "UPDATE tableName SET valuesToUpdate WHERE idName = idValue";
-    private static final String deleteTemplate = "DELETE FROM tableName WHERE idName = idValue";
+    private static final String deleteTemplate = "DELETE FROM tableName WHERE idName = ?";
 
     private String findAll;
     private String find;
@@ -63,8 +63,8 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
     public T find(ID id) throws SQLException {
         T entity = null;
         Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement statement = connection
-                .prepareStatement(find.replace("idValue", String.valueOf(id)))) {
+        try (PreparedStatement statement = connection.prepareStatement(find)) {
+            statement.setString(1, String.valueOf(id));
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     entity = (T) new Transformer<T>((Class<T>) currentClass)
@@ -80,8 +80,8 @@ public abstract class GeneralDAOImp<T, ID> implements GeneralDAO<T, ID> {
     public int delete(ID id) throws SQLException {
         int result = 0;
         Connection connection = ConnectionManager.getConnection();
-        try (PreparedStatement statement = connection
-                .prepareStatement(delete.replace("idValue", String.valueOf(id)))) {
+        try (PreparedStatement statement = connection.prepareStatement(delete)) {
+            statement.setString(1, String.valueOf(id));
             result = statement.executeUpdate();
         }
         return result;
