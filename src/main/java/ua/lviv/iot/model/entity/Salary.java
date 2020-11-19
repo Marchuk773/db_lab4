@@ -2,6 +2,8 @@ package ua.lviv.iot.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 public class Salary {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -23,7 +26,8 @@ public class Salary {
     }
 
     public Salary(Double salary, Double bonus) {
-        this(-1, salary, bonus);
+        this.salary = salary;
+        this.bonus = bonus;
     }
 
     public Salary(Integer id, Double salary, Double bonus) {
@@ -95,7 +99,7 @@ public class Salary {
 
     @Override
     public String toString() {
-        return "Salary [id=" + id + ", salary=" + salary + ", bonus=" + bonus + "]";
+        return "Salary [id=" + id + ", salary=" + salary + ", bonus=" + bonus + "]\n";
     }
 
 }

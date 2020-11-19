@@ -3,6 +3,9 @@ package ua.lviv.iot.model.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name = "User")
@@ -10,56 +13,96 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    @Column
-    private Integer personId;
+    @Column(name = "person_id")
+    private Integer id;
 
-    @Column
-    private Integer abonementId;
+    @OneToOne
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
-    @Column
-    private Integer trainerId;
+    @ManyToOne
+    @JoinColumn(name = "abonement_id", nullable = false)
+    private Abonement abonement;
+
+    @ManyToOne
+    @JoinColumn(name = "trainer_id", referencedColumnName = "person_id", nullable = false)
+    private Trainer trainer;
 
     public User() {
     }
 
-    public User(Integer abonementId, Integer trainerId) {
-        this(-1, abonementId, trainerId);
+    public User(Person person, Abonement abonement, Trainer trainer) {
+        this.id = person.getId();
+        this.person = person;
+        this.abonement = abonement;
+        this.trainer = trainer;
     }
 
-    public User(Integer personId, Integer abonementId, Integer trainerId) {
-        this.personId = personId;
-        this.abonementId = abonementId;
-        this.trainerId = trainerId;
+    public Person getPerson() {
+        return person;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Abonement getAbonement() {
+        return abonement;
     }
 
-    public Integer getAbonementId() {
-        return abonementId;
+    public Trainer getTrainer() {
+        return trainer;
     }
 
-    public Integer getTrainerId() {
-        return trainerId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setAbonement(Abonement abonement) {
+        this.abonement = abonement;
     }
 
-    public void setAbonementId(Integer abonementId) {
-        this.abonementId = abonementId;
+    public void setTrainer(Trainer trainer) {
+        this.trainer = trainer;
     }
 
-    public void setTrainerId(Integer trainerId) {
-        this.trainerId = trainerId;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((abonement == null) ? 0 : abonement.hashCode());
+        result = prime * result + ((person == null) ? 0 : person.hashCode());
+        result = prime * result + ((trainer == null) ? 0 : trainer.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (abonement == null) {
+            if (other.abonement != null)
+                return false;
+        } else if (!abonement.equals(other.abonement))
+            return false;
+        if (person == null) {
+            if (other.person != null)
+                return false;
+        } else if (!person.equals(other.person))
+            return false;
+        if (trainer == null) {
+            if (other.trainer != null)
+                return false;
+        } else if (!trainer.equals(other.trainer))
+            return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "User [personId=" + personId + ", abonementId=" + abonementId + ", trainerId="
-                + trainerId + "]";
+        return "User [person=" + person + ", abonement=" + abonement + ", trainer=" + trainer
+                + "]\n";
     }
 
 }

@@ -8,9 +8,9 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gym?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Amsterdam&amp;useSSL=false</property>
 		<property name="hibernate.connection.username">roman</property>
 		<property name="hibernate.connection.password">admin</property>
-		<property name="hibernate.connection.pool_size">1</property>
+		<property name="hibernate.connection.pool_size">10</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.show_sql">false</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<mapping class="ua.lviv.iot.model.entity.Salary" />
@@ -22,5 +22,7 @@
 		<mapping class="ua.lviv.iot.model.entity.Person" />
 		<mapping class="ua.lviv.iot.model.entity.Trainer" />
 		<mapping class="ua.lviv.iot.model.entity.User" />
+		<mapping
+			class="ua.lviv.iot.model.entity.ExerciseProgramHasExercise" />
 	</session-factory>
 </hibernate-configuration>

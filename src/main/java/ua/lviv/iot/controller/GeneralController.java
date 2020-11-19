@@ -33,9 +33,10 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public List<T> findAll() throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = null;
         List<T> entities = null;
         try {
+            session = sessionFactory.openSession();
             entities = service.findAll(session);
         } finally {
             session.close();
@@ -45,9 +46,10 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public T find(ID id) throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = null;
         T entity = null;
         try {
+            session = sessionFactory.openSession();
             entity = (T) service.find(id, session);
         } finally {
             session.close();
@@ -57,8 +59,9 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public void delete(ID id) throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = null;
         try {
+            session = sessionFactory.openSession();
             service.delete(id, session);
         } finally {
             session.close();
@@ -67,8 +70,9 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public void update(T entity) throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = null;
         try {
+            session = sessionFactory.openSession();
             service.update(entity, session);
         } finally {
             session.close();
@@ -77,8 +81,9 @@ public abstract class GeneralController<T, ID, SERVICE> implements Controller<T,
 
     @Override
     public void create(T entity) throws SQLException {
-        Session session = sessionFactory.openSession();
+        Session session = null;
         try {
+            session = sessionFactory.openSession();
             service.create(entity, session);
         } finally {
             session.close();

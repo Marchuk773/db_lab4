@@ -8,6 +8,7 @@ import ua.lviv.iot.controller.AbonementController;
 import ua.lviv.iot.controller.ExerciseController;
 import ua.lviv.iot.controller.ExerciseDayController;
 import ua.lviv.iot.controller.ExerciseProgramController;
+import ua.lviv.iot.controller.ExerciseProgramHasExerciseController;
 import ua.lviv.iot.controller.ExerciseScheduleController;
 import ua.lviv.iot.controller.PersonController;
 import ua.lviv.iot.controller.SalaryController;
@@ -17,6 +18,7 @@ import ua.lviv.iot.model.entity.Abonement;
 import ua.lviv.iot.model.entity.Exercise;
 import ua.lviv.iot.model.entity.ExerciseDay;
 import ua.lviv.iot.model.entity.ExerciseProgram;
+import ua.lviv.iot.model.entity.ExerciseProgramHasExercise;
 import ua.lviv.iot.model.entity.ExerciseSchedule;
 import ua.lviv.iot.model.entity.Person;
 import ua.lviv.iot.model.entity.Salary;
@@ -32,8 +34,10 @@ public class View {
     private final ExerciseProgramController exerciseProgramController = new ExerciseProgramController();
     private final PersonController personController = new PersonController();
     private final SalaryController salaryController = new SalaryController();
-    private final TrainerController trainerController = new TrainerController();
     private final UserController userController = new UserController();
+    private final TrainerController trainerController = new TrainerController();
+    private final ExerciseProgramHasExerciseController exerciseProgramHasExerciseController =
+            new ExerciseProgramHasExerciseController();
 
     private final Map<String, String> menu;
     private final Map<String, Printable> methodsMenu;
@@ -100,6 +104,12 @@ public class View {
         menu.put("49", "49 - Delete salary by ID");
         menu.put("50", "50 - Update salary");
 
+        menu.put("51", "51 - Get all connections between exercise and exercise program");
+        menu.put("52", "52 - Get connection between exercise and exercise program by ID");
+        menu.put("53", "53 - Create connection between exercise and exercise program");
+        menu.put("54", "54 - Delete connection between exercise and exercise program by ID");
+        menu.put("55", "55 - Update connection between exercise and exercise program");
+
         methodsMenu.put("S", this::showMenu);
 
         methodsMenu.put("1", this::getAllUsers);
@@ -155,6 +165,12 @@ public class View {
         methodsMenu.put("48", this::createSalary);
         methodsMenu.put("49", this::deleteSalary);
         methodsMenu.put("50", this::updateSalary);
+
+        methodsMenu.put("51", this::getAllExerciseProgramHasExercises);
+        methodsMenu.put("52", this::getExerciseProgramHasExerciseById);
+        methodsMenu.put("53", this::createExerciseProgramHasExercise);
+        methodsMenu.put("54", this::deleteExerciseProgramHasExercise);
+        methodsMenu.put("55", this::updateExerciseProgramHasExercise);
 
     }
 
@@ -271,9 +287,10 @@ public class View {
     private void createExerciseDay() throws SQLException {
         System.out.println("\nEnter exercise program ID");
         int exerciseProgramId = INPUT.nextInt();
+        ExerciseProgram exerciseProgram = exerciseProgramController.find(exerciseProgramId);
         System.out.println("\nEnter day name");
         String dayName = INPUT.next();
-        ExerciseDay exerciseDay = new ExerciseDay(dayName, exerciseProgramId);
+        ExerciseDay exerciseDay = new ExerciseDay(dayName, exerciseProgram);
         exerciseDayController.create(exerciseDay);
         System.out.println("Exercise day created!");
     }
@@ -283,9 +300,10 @@ public class View {
         int id = INPUT.nextInt();
         System.out.println("\nEnter exercise program ID");
         int exerciseProgramId = INPUT.nextInt();
+        ExerciseProgram exerciseProgram = exerciseProgramController.find(exerciseProgramId);
         System.out.println("\nEnter day name");
         String dayName = INPUT.next();
-        ExerciseDay exerciseDay = new ExerciseDay(id, dayName, exerciseProgramId);
+        ExerciseDay exerciseDay = new ExerciseDay(id, dayName, exerciseProgram);
         exerciseDayController.update(exerciseDay);
         System.out.println("Exercise day updated!");
     }
@@ -347,14 +365,16 @@ public class View {
     private void createExerciseSchedule() throws SQLException {
         System.out.println("\nEnter user ID");
         int userId = INPUT.nextInt();
+        User user = userController.find(userId);
         System.out.println("\nEnter exercise day ID");
         int exerciseDayId = INPUT.nextInt();
+        ExerciseDay exerciseDay = exerciseDayController.find(exerciseDayId);
         System.out.println("\nEnter appointment date (yyyy-[m]m-[d]d format)");
         String appointmentDate = INPUT.next();
         System.out.println("\nEnter ending date (yyyy-[m]m-[d]d format)");
         String endingDate = INPUT.next();
-        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(userId, exerciseDayId,
-                appointmentDate, endingDate);
+        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(user, exerciseDay, appointmentDate,
+                endingDate);
         exerciseScheduleController.create(exerciseSchedule);
         System.out.println("Exercise schedule created!");
     }
@@ -364,13 +384,15 @@ public class View {
         int id = INPUT.nextInt();
         System.out.println("\nEnter user ID");
         int userId = INPUT.nextInt();
+        User user = userController.find(userId);
         System.out.println("\nEnter exercise day ID");
         int exerciseDayId = INPUT.nextInt();
+        ExerciseDay exerciseDay = exerciseDayController.find(exerciseDayId);
         System.out.println("\nEnter appointment date (yyyy-[m]m-[d]d format)");
         String appointmentDate = INPUT.next();
         System.out.println("\nEnter ending date (yyyy-[m]m-[d]d format)");
         String endingDate = INPUT.next();
-        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(id, userId, exerciseDayId,
+        ExerciseSchedule exerciseSchedule = new ExerciseSchedule(id, user, exerciseDay,
                 appointmentDate, endingDate);
         exerciseScheduleController.update(exerciseSchedule);
         System.out.println("Exercise schedule updated!");
@@ -416,7 +438,7 @@ public class View {
         String gender = INPUT.next();
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
-        Person person = new Person(name, surname, gender, age);
+        Person person = new Person(name, surname, age, gender);
         personController.create(person);
         System.out.println("Person created!");
     }
@@ -432,7 +454,7 @@ public class View {
         String gender = INPUT.next();
         System.out.println("\nEnter age");
         int age = INPUT.nextInt();
-        Person person = new Person(id, name, surname, gender, age);
+        Person person = new Person(id, name, surname, age, gender);
         personController.update(person);
         System.out.println("Person updated!");
     }
@@ -498,9 +520,11 @@ public class View {
     private void createTrainer() throws SQLException {
         System.out.println("\nEnter person ID");
         int personId = INPUT.nextInt();
+        Person person = personController.find(personId);
         System.out.println("\nEnter salary ID");
         int salaryId = INPUT.nextInt();
-        Trainer trainer = new Trainer(personId, salaryId);
+        Salary salary = salaryController.find(salaryId);
+        Trainer trainer = new Trainer(person, salary);
         trainerController.create(trainer);
         System.out.println("Trainer created!");
     }
@@ -508,9 +532,11 @@ public class View {
     private void updateTrainer() throws SQLException {
         System.out.println("\nEnter person ID");
         int personId = INPUT.nextInt();
+        Person person = personController.find(personId);
         System.out.println("\nEnter salary ID");
         int salaryId = INPUT.nextInt();
-        Trainer trainer = new Trainer(personId, salaryId);
+        Salary salary = salaryController.find(salaryId);
+        Trainer trainer = new Trainer(person, salary);
         trainerController.update(trainer);
         System.out.println("Trainer updated!");
     }
@@ -536,11 +562,14 @@ public class View {
     private void createUser() throws SQLException {
         System.out.println("\nEnter person ID");
         int personId = INPUT.nextInt();
+        Person person = personController.find(personId);
         System.out.println("\nEnter abonement ID");
         int abonementId = INPUT.nextInt();
+        Abonement abonement = abonementController.find(abonementId);
         System.out.println("\nEnter trainer ID");
         int trainertId = INPUT.nextInt();
-        User user = new User(personId, abonementId, trainertId);
+        Trainer trainer = trainerController.find(trainertId);
+        User user = new User(person, abonement, trainer);
         userController.create(user);
         System.out.println("User created!");
     }
@@ -548,13 +577,64 @@ public class View {
     private void updateUser() throws SQLException {
         System.out.println("\nEnter person ID");
         int personId = INPUT.nextInt();
+        Person person = personController.find(personId);
         System.out.println("\nEnter abonement ID");
         int abonementId = INPUT.nextInt();
+        Abonement abonement = abonementController.find(abonementId);
         System.out.println("\nEnter trainer ID");
         int trainertId = INPUT.nextInt();
-        User user = new User(personId, abonementId, trainertId);
+        Trainer trainer = trainerController.find(trainertId);
+        User user = new User(person, abonement, trainer);
         userController.update(user);
         System.out.println("User updated!");
+    }
+
+    private void getAllExerciseProgramHasExercises() throws SQLException {
+        System.out.println("\nConnections between exercise program and exercise:");
+        System.out.println(exerciseProgramHasExerciseController.findAll());
+    }
+
+    private void getExerciseProgramHasExerciseById() throws SQLException {
+        System.out.println(
+                "\nEnter ID for the connection between exercise program and exercise you want to find");
+        int id = INPUT.nextInt();
+        System.out.println(exerciseProgramHasExerciseController.find(id));
+    }
+
+    private void deleteExerciseProgramHasExercise() throws SQLException {
+        System.out.println(
+                "\nEnter ID for the connection between exercise program and exercise you want to delete");
+        int id = INPUT.nextInt();
+        exerciseProgramHasExerciseController.delete(id);
+        System.out.println("Connection between exercise program and exercise deleted!");
+    }
+
+    private void createExerciseProgramHasExercise() throws SQLException {
+        System.out.println("\nEnter exercise program ID");
+        int exerciseProgramId = INPUT.nextInt();
+        ExerciseProgram exerciseProgram = exerciseProgramController.find(exerciseProgramId);
+        System.out.println("\nEnter exercise ID");
+        int exerciseId = INPUT.nextInt();
+        Exercise exercise = exerciseController.find(exerciseId);
+        ExerciseProgramHasExercise exerciseProgramHasExercise = new ExerciseProgramHasExercise(
+                exerciseProgram, exercise);
+        exerciseProgramHasExerciseController.create(exerciseProgramHasExercise);
+        System.out.println("Connection between exercise program and exercise created!");
+    }
+
+    private void updateExerciseProgramHasExercise() throws SQLException {
+        System.out.println("\nEnter id of the connection you want to update ID");
+        int id = INPUT.nextInt();
+        System.out.println("\nEnter exercise program ID");
+        int exerciseProgramId = INPUT.nextInt();
+        ExerciseProgram exerciseProgram = exerciseProgramController.find(exerciseProgramId);
+        System.out.println("\nEnter exercise ID");
+        int exerciseId = INPUT.nextInt();
+        Exercise exercise = exerciseController.find(exerciseId);
+        ExerciseProgramHasExercise exerciseProgramHasExercise = new ExerciseProgramHasExercise(id,
+                exerciseProgram, exercise);
+        exerciseProgramHasExerciseController.update(exerciseProgramHasExercise);
+        System.out.println("Connection between exercise program and exercise updated!");
     }
 
     private final void showMenu() {
@@ -573,14 +653,18 @@ public class View {
     public void show() {
         String keyMenu;
         showSmallMenu();
-        do {
+        while (true) {
             keyMenu = INPUT.next().toUpperCase();
+            if (keyMenu.equals("Q")) {
+                System.out.println("\nProgram closed!");
+                break;
+            }
             try {
                 methodsMenu.get(keyMenu).print();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             showSmallMenu();
-        } while (!keyMenu.equals("Q"));
+        }
     }
 }

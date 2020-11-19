@@ -63,9 +63,9 @@ CREATE TABLE exercise_program (
 );
 
 CREATE TABLE exercise_program_has_exercise (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     exercise_program_id INT NOT NULL,
-    exercise_id INT NOT NULL,
-    CONSTRAINT PK_exercise_program_exercise PRIMARY KEY (exercise_program_id, exercise_id)
+    exercise_id INT NOT NULL
 );
 
 CREATE TABLE exercise (
