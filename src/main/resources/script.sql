@@ -27,13 +27,15 @@ CREATE TABLE person (
 );
 
 CREATE TABLE user (
-    person_id INT PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    person_id INT NOT NULL,
     trainer_id INT NOT NULL,
 	abonement_id INT NOT NULL
 );
 
 CREATE TABLE trainer (
-    person_id INT PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    person_id INT NOT NULL,
     salary_id INT NOT NULL
 );
 
@@ -210,19 +212,23 @@ INSERT INTO exercise(name, duration_in_minutes, muscle_group, repeats_quantity, 
 
 
 ALTER TABLE user
+	ADD UNIQUE person_trainer_abonement(person_id, trainer_id, abonement_id),
+
 	ADD CONSTRAINT FK_user_person
     FOREIGN KEY (person_id)
     REFERENCES person(id),
     
     ADD CONSTRAINT FK_user_trainer
     FOREIGN KEY (trainer_id)
-    REFERENCES trainer(person_id),
+    REFERENCES trainer(id),
     
     ADD CONSTRAINT FK_user_abonement
     FOREIGN KEY (abonement_id)
     REFERENCES abonement(id);
     
 ALTER TABLE trainer
+	ADD UNIQUE person_salary(person_id, salary_id),
+
 	ADD CONSTRAINT FK_trainer_person
     FOREIGN KEY (person_id)
     REFERENCES person(id),

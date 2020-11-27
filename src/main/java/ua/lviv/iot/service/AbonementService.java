@@ -1,12 +1,21 @@
 package ua.lviv.iot.service;
 
-import ua.lviv.iot.DAO.AbonementDAOImp;
-import ua.lviv.iot.model.entity.Abonement;
+import ua.lviv.iot.dataaccess.AbonementRepository;
+import ua.lviv.iot.domain.Abonement;
 
-public class AbonementService extends GeneralService<Abonement, Integer, AbonementDAOImp> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-    public AbonementService() {
-        super(AbonementDAOImp.class);
+@Service
+public class AbonementService extends GeneralService<Abonement, Integer> {
+
+    @Autowired
+    private AbonementRepository abonementRepository;
+
+    @Override
+    public JpaRepository<Abonement, Integer> getRepository() {
+        return abonementRepository;
     }
 
 }

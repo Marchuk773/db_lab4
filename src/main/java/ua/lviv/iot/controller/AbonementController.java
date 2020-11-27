@@ -1,12 +1,23 @@
 package ua.lviv.iot.controller;
 
-import ua.lviv.iot.model.entity.Abonement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.lviv.iot.domain.Abonement;
 import ua.lviv.iot.service.AbonementService;
+import ua.lviv.iot.service.ServiceInterface;
 
-public class AbonementController extends GeneralController<Abonement, Integer, AbonementService> {
+@RestController
+@RequestMapping("/abonement")
+public class AbonementController extends GeneralController<Abonement, Integer> {
 
-    public AbonementController() {
-        super(AbonementService.class);
+    @Autowired
+    AbonementService abonementService;
+
+    @Override
+    public ServiceInterface<Abonement, Integer> getService() {
+        return abonementService;
     }
 
 }

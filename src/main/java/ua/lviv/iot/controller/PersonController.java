@@ -1,30 +1,23 @@
 package ua.lviv.iot.controller;
 
-import java.sql.SQLException;
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-import ua.lviv.iot.model.entity.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.lviv.iot.domain.Person;
 import ua.lviv.iot.service.PersonService;
+import ua.lviv.iot.service.ServiceInterface;
 
-public class PersonController extends GeneralController<Person, Integer, PersonService> {
+@RestController
+@RequestMapping("/person")
+public class PersonController extends GeneralController<Person, Integer> {
 
-    public PersonController() {
-        super(PersonService.class);
-    }
+    @Autowired
+    PersonService personService;
 
-    public List<Person> findByInitials(String name, String surname) throws SQLException {
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        Session session = configuration.buildSessionFactory().openSession();
-        PersonService service = new PersonService();
-        List<Person> people = null;
-        try {
-            people = service.findByInitials(name, surname, session);
-        } finally {
-            session.close();
-        }
-        return people;
+    @Override
+    public ServiceInterface<Person, Integer> getService() {
+        return personService;
     }
 
 }

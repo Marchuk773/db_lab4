@@ -2,92 +2,47 @@ package ua.lviv.iot.controller;
 
 import java.sql.SQLException;
 import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import ua.lviv.iot.service.GeneralService;
 
-@SuppressWarnings({ "deprecation", "rawtypes", "unchecked" })
-public abstract class GeneralController<T, ID, SERVICE> implements Controller<T, ID> {
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
-    GeneralService service;
-    private static final SessionFactory sessionFactory;
+import ua.lviv.iot.service.ServiceInterface;
 
-    static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
-            sessionFactory = configuration.buildSessionFactory();
-        } catch (Throwable throwable) {
-            throw new ExceptionInInitializerError(throwable);
-        }
-    }
-
-    public GeneralController(Class<SERVICE> currentClass) {
-        try {
-            service = (GeneralService) currentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
+public abstract class GeneralController<T, ID> implements Controller<T, ID> {
 
     @Override
+    public abstract ServiceInterface<T, ID> getService();
+
+    @Override
+    @GetMapping("")
     public List<T> findAll() throws SQLException {
-        Session session = null;
-        List<T> entities = null;
-        try {
-            session = sessionFactory.openSession();
-            entities = service.findAll(session);
-        } finally {
-            session.close();
-        }
-        return entities;
+        return getService().findAll();
     }
 
     @Override
+    @GetMapping("/{id}")
     public T find(ID id) throws SQLException {
-        Session session = null;
-        T entity = null;
-        try {
-            session = sessionFactory.openSession();
-            entity = (T) service.find(id, session);
-        } finally {
-            session.close();
-        }
-        return entity;
+        return (T) getService().find(id);
     }
 
     @Override
+    @DeleteMapping("/{id}")
     public void delete(ID id) throws SQLException {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
-            service.delete(id, session);
-        } finally {
-            session.close();
-        }
+        getService().delete(id);
     }
 
     @Override
+    @PutMapping("/{id}")
     public void update(T entity) throws SQLException {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
-            service.update(entity, session);
-        } finally {
-            session.close();
-        }
+        getService().update(entity);
     }
 
     @Override
+    @PostMapping("")
     public void create(T entity) throws SQLException {
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
-            service.create(entity, session);
-        } finally {
-            session.close();
-        }
+        getService().create(entity);
     }
 
 }

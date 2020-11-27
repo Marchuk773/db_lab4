@@ -1,13 +1,23 @@
 package ua.lviv.iot.controller;
 
-import ua.lviv.iot.model.entity.ExerciseSchedule;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.lviv.iot.domain.ExerciseSchedule;
 import ua.lviv.iot.service.ExerciseScheduleService;
+import ua.lviv.iot.service.ServiceInterface;
 
-public class ExerciseScheduleController
-        extends GeneralController<ExerciseSchedule, Integer, ExerciseScheduleService> {
+@RestController
+@RequestMapping("/exercise_schedule")
+public class ExerciseScheduleController extends GeneralController<ExerciseSchedule, Integer> {
 
-    public ExerciseScheduleController() {
-        super(ExerciseScheduleService.class);
+    @Autowired
+    ExerciseScheduleService exerciseScheduleService;
+
+    @Override
+    public ServiceInterface<ExerciseSchedule, Integer> getService() {
+        return exerciseScheduleService;
     }
 
 }

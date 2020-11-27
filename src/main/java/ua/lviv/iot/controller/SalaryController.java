@@ -1,12 +1,23 @@
 package ua.lviv.iot.controller;
 
-import ua.lviv.iot.model.entity.Salary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.lviv.iot.domain.Salary;
 import ua.lviv.iot.service.SalaryService;
+import ua.lviv.iot.service.ServiceInterface;
 
-public class SalaryController extends GeneralController<Salary, Integer, SalaryService> {
+@RestController
+@RequestMapping("/salary")
+public class SalaryController extends GeneralController<Salary, Integer> {
 
-    public SalaryController() {
-        super(SalaryService.class);
+    @Autowired
+    SalaryService salaryService;
+
+    @Override
+    public ServiceInterface<Salary, Integer> getService() {
+        return salaryService;
     }
 
 }

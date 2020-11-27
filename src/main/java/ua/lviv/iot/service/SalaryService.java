@@ -1,12 +1,21 @@
 package ua.lviv.iot.service;
 
-import ua.lviv.iot.DAO.SalaryDAOImp;
-import ua.lviv.iot.model.entity.Salary;
+import ua.lviv.iot.dataaccess.SalaryRepository;
+import ua.lviv.iot.domain.Salary;
 
-public class SalaryService extends GeneralService<Salary, Integer, SalaryDAOImp> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-    public SalaryService() {
-        super(SalaryDAOImp.class);
+@Service
+public class SalaryService extends GeneralService<Salary, Integer> {
+
+    @Autowired
+    SalaryRepository salaryRepository;
+
+    @Override
+    public JpaRepository<Salary, Integer> getRepository() {
+        return salaryRepository;
     }
 
 }

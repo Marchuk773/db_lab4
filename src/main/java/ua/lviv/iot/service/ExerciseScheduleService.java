@@ -1,13 +1,21 @@
 package ua.lviv.iot.service;
 
-import ua.lviv.iot.DAO.ExerciseScheduleDAOImp;
-import ua.lviv.iot.model.entity.ExerciseSchedule;
+import ua.lviv.iot.dataaccess.ExerciseScheduleRepository;
+import ua.lviv.iot.domain.ExerciseSchedule;
 
-public class ExerciseScheduleService
-        extends GeneralService<ExerciseSchedule, Integer, ExerciseScheduleDAOImp> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-    public ExerciseScheduleService() {
-        super(ExerciseScheduleDAOImp.class);
+@Service
+public class ExerciseScheduleService extends GeneralService<ExerciseSchedule, Integer> {
+
+    @Autowired
+    ExerciseScheduleRepository exerciseScheduleRepository;
+
+    @Override
+    public JpaRepository<ExerciseSchedule, Integer> getRepository() {
+        return exerciseScheduleRepository;
     }
 
 }

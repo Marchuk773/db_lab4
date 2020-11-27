@@ -1,12 +1,23 @@
 package ua.lviv.iot.controller;
 
-import ua.lviv.iot.model.entity.Exercise;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ua.lviv.iot.domain.Exercise;
 import ua.lviv.iot.service.ExerciseService;
+import ua.lviv.iot.service.ServiceInterface;
 
-public class ExerciseController extends GeneralController<Exercise, Integer, ExerciseService> {
+@RestController
+@RequestMapping("/exercise")
+public class ExerciseController extends GeneralController<Exercise, Integer> {
 
-    public ExerciseController() {
-        super(ExerciseService.class);
+    @Autowired
+    ExerciseService exerciseService;
+
+    @Override
+    public ServiceInterface<Exercise, Integer> getService() {
+        return exerciseService;
     }
 
 }

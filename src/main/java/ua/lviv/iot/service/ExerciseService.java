@@ -1,12 +1,21 @@
 package ua.lviv.iot.service;
 
-import ua.lviv.iot.DAO.ExerciseDAOImp;
-import ua.lviv.iot.model.entity.Exercise;
+import ua.lviv.iot.dataaccess.ExerciseRepository;
+import ua.lviv.iot.domain.Exercise;
 
-public class ExerciseService extends GeneralService<Exercise, Integer, ExerciseDAOImp> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-    public ExerciseService() {
-        super(ExerciseDAOImp.class);
+@Service
+public class ExerciseService extends GeneralService<Exercise, Integer> {
+
+    @Autowired
+    ExerciseRepository exerciseRepository;
+
+    @Override
+    public JpaRepository<Exercise, Integer> getRepository() {
+        return exerciseRepository;
     }
 
 }
