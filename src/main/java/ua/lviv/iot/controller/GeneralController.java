@@ -3,6 +3,8 @@ package ua.lviv.iot.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +23,14 @@ public abstract class GeneralController<T, ID> implements Controller<T, ID> {
         return getService().findAll();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @GetMapping("/{id}")
     public T find(ID id) throws SQLException {
+        T object = (T) getService().find(id);
+        if (object == null) {
+            return (T) new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
         return (T) getService().find(id);
     }
 
