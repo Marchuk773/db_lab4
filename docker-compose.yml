@@ -44,6 +44,8 @@ services:
           
   db:
     image: mysql
+    volumes:
+      - data-volume:/var/lib/mysql
     container_name: db
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -57,3 +59,6 @@ services:
       interval: 10s
       timeout: 2s
       retries: 10
+      
+volumes:
+  data-volume:
