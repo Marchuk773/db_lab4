@@ -62,4 +62,3 @@ services:
 volumes:
   data-volume:
   grafana-data:
-    external: true
