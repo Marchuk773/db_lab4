@@ -20,7 +20,7 @@
 
 
 	<properties>
-		<java.version>16</java.version>
+		<java.version>11</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -167,7 +167,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<release>13</release>
+					<release>11</release>
 				</configuration>
 			</plugin>
 
